@@ -1,42 +1,370 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.mapUi {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: #eef2f7;
+}
+
+.mapCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.uiOverlay {
+  position: relative;
+  z-index: 2;
+  padding: 20px 18px 28vh;
+  display: grid;
+  gap: 14px;
+  min-height: 100vh;
+  pointer-events: none;
+}
+
+.topRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.searchBar {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.12);
+  font-weight: 600;
+  color: #65707c;
+}
+
+.searchBar svg {
+  width: 18px;
+  height: 18px;
+  fill: #97a0aa;
+}
+
+.filterButton {
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  border: none;
+  background: #42d46f;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 22px rgba(66, 212, 111, 0.45);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.filterButton svg {
+  width: 20px;
+  height: 20px;
+  fill: #0f172a;
+}
+
+.chipRow {
+  display: flex;
+  gap: 10px;
+  pointer-events: auto;
+  flex-wrap: wrap;
+}
+
+.chip {
+  background: #ffffff;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+}
+
+.chip.active {
+  background: #d9f9df;
+  border-color: #42d46f;
+  color: #0f172a;
+}
+
+.pricePins {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.pin {
+  position: absolute;
+  padding: 7px 12px;
+  background: #ffffff;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 13px;
+  color: #0f172a;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.15);
+}
+
+.pin::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #ffffff;
+}
+
+.pin.active {
+  background: #42d46f;
+  color: #0f172a;
+}
+
+.pin.active::after {
+  border-top-color: #42d46f;
+}
+
+.mapPriceMarker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: #ffffff;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 13px;
+  color: #0f172a;
+  line-height: 1;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
+  white-space: nowrap;
+  transform: translate(-50%, -100%);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.mapPriceMarker::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  transform: translateX(-50%);
+  border: 7px solid transparent;
+  border-top-color: #ffffff;
+}
+
+.mapPriceMarker.active {
+  background: #52e21a;
+  color: #0f172a;
+  border-color: #4dd51b;
+}
+
+.mapPriceMarker.active::after {
+  border-top-color: #52e21a;
+}
+
+.mapPriceMarkerIcon {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.mapPriceMarkerText {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.locateButton {
+  position: absolute;
+  right: 18px;
+  bottom: 30vh;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: #ffffff;
+  box-shadow: 0 12px 22px rgba(15, 23, 42, 0.15);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.locateButton svg {
+  width: 20px;
+  height: 20px;
+  fill: #42d46f;
+}
+
+.bottomCard {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 24px;
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 18px;
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.18);
+  display: grid;
+  gap: 14px;
+  pointer-events: auto;
+}
+
+.cardHeader {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  position: relative;
+}
+
+.avatar::after {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border-radius: 50%;
+  background: #cbd5f5;
+}
+
+.nameRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.likeButton {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.likeButton svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: #94a3b8;
+  stroke-width: 2;
+}
+
+.rating {
+  font-size: 13px;
+  color: #f59e0b;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.tagRow {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.verified {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0f172a;
+  background: #d9f9df;
+  padding: 4px 10px;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+.cardMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.metaLabel {
+  font-size: 10px;
+  color: #94a3b8;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.rate {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.rate span {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.nextBlock {
+  text-align: right;
+}
+
+.next {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.bookButton {
+  border: none;
+  background: #42d46f;
+  color: #0f172a;
+  border-radius: 16px;
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 12px 20px rgba(66, 212, 111, 0.45);
+}
+
+.mapPlaceholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
   text-align: center;
+  background: rgba(255, 255, 255, 0.8);
+  color: #1f2937;
+  font-weight: 600;
+  pointer-events: auto;
+  padding: 24px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (min-width: 900px) {
+  .uiOverlay {
+    padding: 28px 36px 28vh;
   }
-  to {
-    transform: rotate(360deg);
+
+  .bottomCard {
+    left: 28px;
+    right: auto;
+    width: 360px;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
